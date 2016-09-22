@@ -1,5 +1,7 @@
 var array = [];
 
+var rasname = process.env.RASPI_NAME;
+
 var MongoClient = require('mongodb').MongoClient
 	,assert = require('assert');
 
@@ -42,8 +44,8 @@ var avetime = function(){
 	
 //mongoDBに送信	
 	addDatabase([
-		{minor : 101 , date :  time,  強度 : ave101, 距離 : dist101},
-		{minor : 102 , date :  time,  強度 : ave102, 距離 : dist102}
+		{receiver : rasname, minor : 101 , date :  time,  強度 : ave101, 距離 : dist101},
+		{receiver : rasname, minor : 102 , date :  time,  強度 : ave102, 距離 : dist102}
 	]);
 	
 	console.log('101 = ' + ave101);
