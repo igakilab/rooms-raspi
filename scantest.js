@@ -23,6 +23,11 @@ Bleacon.on('discover',function(bleacon){
 var avetime = function(){
 	var tmp = array;
 	array = [];
+
+	if(tmp.length == 0){
+		return;
+	}
+
 	var beacon101 = 0; beacon101C = 0;
 	var beacon102 = 0; beacon102C = 0;
 	for(var i = 0; i < tmp.length; i++){
@@ -34,24 +39,28 @@ var avetime = function(){
 			beacon102C++;
 		}
 	}
-
 	var measuredPower = tmp[0].measuredPower
-	var ave101 = beacon101 / beacon101C;
-	var ave102 = beacon102 / beacon102C;
-	var dist101 = Math.pow(10,(measuredPower - ave101) / 20);
-	var dist102 = Math.pow(10,(measuredPower - ave102) / 20);
+	var data = [];
 	var time = new Date();
+
+	if(beacon101C > 0){		
+		var ave101 = beacon101 / beacon101C;
+		var dist101 = Math.pow(10,(measuredPower - ave101) / 20);
+		data.push({receiver : rasname, minor : 101, date : time, 強度 : ave101, 距離 : dist101});
+		console.log('101 = ' + ave101);
+		console.log('距離 : ' + dist101);
+	}
+	if(beacon102C > 0){
+		var ave102 = beacon102 / beacon102C;
+		var dist102 = Math.pow(10,(measuredPower - ave102) / 20);
+		data.push({receiver : rasname, minor : 102, date : time, 強度 : ave102, 距離 : dist102});
+		console.log('102 = ' + ave102);
+		console.log('距離 : ' + dist102);
+	}
 	
 //mongoDBに送信	
-	addDatabase([
-		{receiver : rasname, minor : 101 , date :  time,  強度 : ave101, 距離 : dist101},
-		{receiver : rasname, minor : 102 , date :  time,  強度 : ave102, 距離 : dist102}
-	]);
-	
-	console.log('101 = ' + ave101);
-	console.log('距離 : ' + dist101);
-	console.log('102 = ' + ave102);
-	console.log('距離 : ' + dist102);
+	addDatabase(data);
+
 }
 
 setInterval(avetime,5000);
