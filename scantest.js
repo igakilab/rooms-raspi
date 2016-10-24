@@ -3,7 +3,8 @@ var array = [];
 var rasname = process.env.RASPI_NAME;
 
 var MongoClient = require('mongodb').MongoClient
-	,assert = require('assert');
+	,assert = require('assert')
+	,average = require('./beacon-average');
 
 var addDatabase = function(data){
 	var url = 'mongodb://150.89.234.253:27017/myproject-room';
@@ -28,36 +29,15 @@ var avetime = function(){
 		return;
 	}
 
-	var beacon101 = 0; beacon101C = 0;
-	var beacon102 = 0; beacon102C = 0;
-	for(var i = 0; i < tmp.length; i++){
-		if(tmp[i].minor == 101){
-			beacon101 += tmp[i].rssi;
-			beacon101C++;
-		}else{
-			beacon102 += tmp[i].rssi;
-			beacon102C++;
-		}
-	}
-	var measuredPower = tmp[0].measuredPower
-	var data = [];
-	var time = new Date();
+result = average.calcRssiAverages(tmp);
+console.log(result);
+var data = [];
+var time = new Date();
+for(var i = 0;i<result.length;i++){
+    var dist = Math.pow(10,(result[i].measuredPower - result[i].averageRssi) / 20);
+        data.push({receiver : rasname, minor.minor : result[i], date : time, 強度 : result[i].averageRssi, 距離 : dist});
+}
 
-	if(beacon101C > 0){		
-		var ave101 = beacon101 / beacon101C;
-		var dist101 = Math.pow(10,(measuredPower - ave101) / 20);
-		data.push({receiver : rasname, minor : 101, date : time, 強度 : ave101, 距離 : dist101});
-		console.log('101 = ' + ave101);
-		console.log('距離 : ' + dist101);
-	}
-	if(beacon102C > 0){
-		var ave102 = beacon102 / beacon102C;
-		var dist102 = Math.pow(10,(measuredPower - ave102) / 20);
-		data.push({receiver : rasname, minor : 102, date : time, 強度 : ave102, 距離 : dist102});
-		console.log('102 = ' + ave102);
-		console.log('距離 : ' + dist102);
-	}
-	
 //mongoDBに送信	
 	addDatabase(data);
 
