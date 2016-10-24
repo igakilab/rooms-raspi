@@ -35,7 +35,7 @@ var data = [];
 var time = new Date();
 for(var i = 0;i<result.length;i++){
     var dist = Math.pow(10,(result[i].measuredPower - result[i].averageRssi) / 20);
-        data.push({receiver : rasname, minor.minor : result[i], date : time, 強度 : result[i].averageRssi, 距離 : dist});
+        data.push({receiver : rasname, minor : result[i].minor, date : time, 強度 : result[i].averageRssi, 距離 : dist});
 }
 
 //mongoDBに送信	
