@@ -1,0 +1,22 @@
+{
+  "name": "rooms-raspi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "sudo -E node scantest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igakilab/rooms-raspi.git"
+  },
+  "author": "gt-rooms",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igakilab/rooms-raspi/issues"
+  },
+  "homepage": "https://github.com/igakilab/rooms-raspi#readme",
+  "dependencies": {
+    "bleacon": "^0.5.1"
+  }
+}
