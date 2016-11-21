@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/igakilab/rooms-raspi#readme",
   "dependencies": {
-    "bleacon": "^0.5.1"
+    "bleacon": "^0.5.1",
+    "mongodb": "^2.2.11"
   }
 }
