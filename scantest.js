@@ -22,6 +22,7 @@ function main(){
 	Bleacon.on('discover', function(bleacon){
 		array.push(bleacon);
 	});
+	console.log("Start scanning...");
 
 	setInterval(avetime,5000);
 }
@@ -41,16 +42,17 @@ function avetime(){
 	var tmp = array;
 	array = [];
 
-	if( tmp.laength == 0 ){
+	if( tmp.length == 0 ){
 		return;
 	}
 
 	result = average.calcRssiAverages(tmp);
 	var data = [];
 	var time = new Date();
+	console.log("-------  " + time.toLocaleString() + "  --------------");
 	for(var i = 0; i<result.length; i++){
 		var dist = Math.pow(10, (result[i].measuredPower - result[i].averageRssi) / 20);
-		console.log("beaconid: " + result[i].minor + " distance: " + dist);
+		console.log("beaconid: " + result[i].minor + " rssi: " + result[i].averageRssi + " distance: " + dist);
 		data.push({receiver: rasname, minor: result[i].minor, date: time, 強度: result[i].averageRssi, 距離: dist});
 	}
 
