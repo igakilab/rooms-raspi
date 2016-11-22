@@ -33,7 +33,11 @@ function addDatabase(data){
 	MongoClient.connect(url, function(err, db){
 		assert.equal(err, null);
 		var collection = db.collection('beacons');
-		collection.insertMany(data, function(err, result){});
+		collection.insertMany(data, function(err, result){
+			assert.equal(err, null);
+			//処理が終了したら接続をクローズ
+			db.close();
+		});
 	});
 }
 
