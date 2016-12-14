@@ -17,7 +17,7 @@ $ npm test
 
 起動時に実行される`profile`ファイルを編集する方法です。  
 `/etc/profile`ファイルをテキストエディタで開き、ファイルの末尾に下記のコマンドを追記します。  
-nanoで開く場合: `$ sudo nano /etc/rc.local`
+nanoで開く場合: `$ sudo nano /etc/profile`
 ```
 ...
 export RASPI_NAME="<RASPI名>"
