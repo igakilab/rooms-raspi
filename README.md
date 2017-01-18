@@ -12,6 +12,10 @@ $ npm install
 $ npm test
 ```
 
+nohupを使って、ログオフ後も実行を続けさせる場合は下記のコマンドを実行します
+```
+$ nohup npm test &
+```
 
 ## RASPI名の指定方法
 
