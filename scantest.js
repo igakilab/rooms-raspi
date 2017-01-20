@@ -8,6 +8,9 @@ var MongoClient = require('mongodb').MongoClient
 
 var Bleacon = require('bleacon');
 
+process.on('uncaughtException', function(err){
+	console.log(err);
+}
 
 function main(){
 	//RASPI名がちゃんと設定されているか確認
@@ -31,7 +34,10 @@ function main(){
 function addDatabase(data){
 	var url = "mongodb://150.89.234.253:27017/myproject-room";
 	MongoClient.connect(url, function(err, db){
-		assert.equal(err, null);
+		if( err ){
+			console.log(err.stack);
+			return;
+		}
 		var collection = db.collection('beacons');
 		collection.insertMany(data, function(err, result){
 			assert.equal(err, null);
