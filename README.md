@@ -12,14 +12,19 @@ $ npm install
 $ npm test
 ```
 
+nohupを使って、ログオフ後も実行を続けさせる場合は下記のコマンドを実行します
+```
+$ nohup npm test &
+```
 
 ## RASPI名の指定方法
 
-起動時に実行される`rc.local`ファイルを編集する方法です。  
-`/etc/rc.local`ファイルをテキストエディタで開き、`exit 0`の前に下記のコマンドを追記します。
-
+起動時に実行される`profile`ファイルを編集する方法です。  
+`/etc/profile`ファイルをテキストエディタで開き、ファイルの末尾に下記のコマンドを追記します  
+nanoで開く場合: `$ sudo nano /etc/profile`
 ```
 ...
-export RASPI_NAME=<RASPI名>
+export RASPI_NAME="<RASPI名>"
 ...
 ```
+また、設定を反映させるには、ログアウトして再度ログインする必要があります
